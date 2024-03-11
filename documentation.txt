@@ -1,2 +1,5 @@
 wyznaczyć liczbę pi metodą Monte Carlo
 
+(pi*r**2)/4=pole
+
+pi=4*pole*4/(r**2)
