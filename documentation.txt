@@ -1,5 +1,79 @@
-wyznaczyć liczbę pi metodą Monte Carlo
+Project Title: Monte Carlo Estimation of Pi
 
-(pi*r**2)/4=pole
+Overview:
+The purpose of this project is to estimate the mathematical constant Pi (π) using the Monte Carlo algorithm. Monte Carlo methods are a class of computational techniques that rely on random sampling to obtain numerical results. In this context, the algorithm involves sampling points within a quarter of a unit circle on the positive axis and utilizing the ratio of points within the circle to the total number of points to estimate the area of the circle. This estimation is then utilized to approximate the value of Pi.
 
-pi=4*pole*4/(r**2)
+Functionality:
+The core function of this project is 'Monte_Carlo_PI', which takes the number of points to sample as an argument. Within this function, random points are generated within the defined quarter circle, and the number of points landing within the circle is counted. This count is then utilized to calculate an estimation of Pi based on the aforementioned mathematical relationship.
+
+Estimation Formula:
+The estimation of Pi is derived from the formula: 
+π = 4 * (Area of Circle) / (r^2), 
+where r = 1. 
+The area of the circle is calculated as the ratio of points within the circle to the total number of points sampled.
+
+Visualizations:
+Basic visuals are provided to aid in understanding the estimation process. A scatterplot demonstrates the fundamental premise of the Monte Carlo algorithm by visually depicting the sampled points within the quarter circle.
+
+Simulation and Analysis:
+The project conducts 10 simulations to estimate Pi for varying numbers of sampled points ranging from 1 to 10,000. These estimations are then plotted on a single graph to visualize their convergence towards the true value of Pi as the number of sampled points increases.
+
+Furthermore, the project evaluates the variance and other statistical measures by comparing the estimation accuracy for different sample sizes. Sample sizes of 100, 1,000, 10,000, and 100,000 are each calculated 10 times, and the results are compared using a box plot to assess the consistency and reliability of the estimation method across different sample sizes.
+
+This project provides a comprehensive exploration of the Monte Carlo method for estimating Pi, offering both visual representations and statistical analyses to assess its effectiveness and accuracy.
+
+
+
+
+*Functions*
+
+Monte_Carlo_PI(n)
+Parameters:
+
+n: Integer, number of points to draw.
+Description:
+
+This function performs a Monte Carlo simulation to estimate the value of π.
+It generates n random points within a unit square and calculates the ratio of points that fall within the inscribed quarter-circle to the total number of points.
+Returns a list [pi, x, y, within], where:
+pi: Estimated value of π.
+x: Array of x-coordinates of generated points.
+y: Array of y-coordinates of generated points.
+within: Boolean array indicating whether each point falls within the quarter-circle.
+Scatter_Plot_Monte_carlo(x, y, points_within)
+Parameters:
+
+x: Array, x-coordinates of generated points.
+y: Array, y-coordinates of generated points.
+points_within: Boolean array, indicates points within the quarter-circle.
+Description:
+
+This function creates a scatter plot to visualize the Monte Carlo simulation results.
+Points within the quarter-circle are plotted in purple, while points outside are plotted in yellow.
+Perform_Simulations(N, n, iter=True)
+Parameters:
+
+N: Integer, number of simulations.
+n: Integer, number of samples in each simulation.
+iter: Boolean, indicates whether to use iterative (DataFrame) approach.
+Description:
+
+This function performs Monte Carlo simulations to estimate π.
+Returns a DataFrame (if iter=True) or a list of estimates (if iter=False), where each column represents a simulation and each row represents the number of samples and the corresponding estimated value of π.
+plot_pi_dataframe(dataframe)
+Parameters:
+
+dataframe: DataFrame, contains estimated values of π from simulations.
+Description:
+
+This function plots the estimated values of π from simulations over the number of samples.
+Each line represents the estimated values from a single simulation, with transparency for better visualization.
+plot_pi_estimates(pi_estimates, N_values)
+Parameters:
+
+pi_estimates: List of lists, contains estimated values of π from simulations for different sample sizes.
+N_values: List, contains different sample sizes.
+Description:
+
+This function plots boxplots to visualize the distribution of estimated values of π for different sample sizes.
+The red dashed line represents the true value of π for comparison.
