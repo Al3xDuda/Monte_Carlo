@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import time
 import sklearn
 np.random.seed(111)
-
+#try different numerical estimations?
 def Monte_Carlo_PI(n): #n - number of points to draw
     def boundry_values(x):
         return np.sqrt(1-x*x)
@@ -25,41 +25,22 @@ def Scatter_Plot_Monte_carlo(x,y,points_within):
     plt.legend()
     plt.show()
 
-def Perform_Simulations(N,n,iter=True): #N - amount of simulations #n - amount of smaples in each simulation
+def Perform_Simulations(N,n): #N - amount of simulations #n - amount of smaples in each simulation
     #columns- each simulation
     #index is number of samples. each value is essentaily a pi estimate in each simulation in with <index. amount of samples
-    if iter:
-        pi_estimate_array = pd.DataFrame(index=range(n), columns=range(N), dtype=float)
-        pi_estimate_array.fillna(0, inplace=True)
-    else:
-        pi_estimate_array = []
-
+    pi_estimate_array = pd.DataFrame(index=range(n), columns=range(N), dtype=float)
+    pi_estimate_array.fillna(0, inplace=True)
     for i in range(0,N):
-        if iter:
-            for j in range(1,n+1):
-                pi_estimate_array.loc[j-1,i]=Monte_Carlo_PI(j+1)[0]
-        else:
-            pi_estimate_array.append(Monte_Carlo_PI(n)[0])
-
+        for j in range(1,n+1):
+            pi_estimate_array.loc[j-1,i]=Monte_Carlo_PI(j+1)[0]
+    # print(pi_estimate_array)
     return pi_estimate_array
-
 def plot_pi_dataframe(dataframe):
     plt.plot(dataframe, color='blue', alpha=0.1, linewidth=0.5)
     plt.axhline(y=np.pi, color='r', linestyle='-',label='Pi Value')
     plt.xlabel('Number of Samples')
     plt.ylabel('Pi Estimate')
     plt.title('Monte Carlo Simulation for π Estimation')
-    plt.show()
-
-def plot_pi_estimates(pi_estimates, N_values):
-    plt.figure(figsize=(10, 6))
-    plt.boxplot(pi_estimates, labels=N_values)
-    plt.xlabel('Liczba losowań (N)')
-    plt.ylabel('Estymowana wartość π')
-    plt.title('Estymacja wartości π za pomocą metody Monte Carlo dla różnych N')
-    plt.axhline(y=np.pi, color='r', linestyle='--', label='Wartość rzeczywista π')
-    plt.legend()
-    plt.grid(True)
     plt.show()
 
 
@@ -71,15 +52,10 @@ print(f"Compilation time: {end_time-start_time} seconds.")
 print(f'Pi estimate value: {pi}')
 
 #Plotting
-pi_estimate_array=Perform_Simulations(10,10000)
+pi_estimate_array=Perform_Simulations(20,10000)
 #plot all the pi estimates for each simulation
+
 plot_pi_dataframe(pi_estimate_array)
-
-
-N_values = [100, 1000, 10000, 100000]
-num_simulations = 10
-
-pi_estimates = []
-for N in N_values:
-    pi_estimates.append(Perform_Simulations(num_simulations, N,iter=False))
-plot_pi_estimates(pi_estimates, N_values)
+#make box plots for each number of samples
+plt.boxplot(pi_estimate_array)
+plt.show()
